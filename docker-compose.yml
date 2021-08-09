@@ -1,0 +1,39 @@
+version: "3.6"
+
+networks:
+  splunknet:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.16.239.0/24"
+
+services:
+  fsh:
+    networks:
+      splunknet:
+        ipv4_address: 172.16.239.10
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: fsh
+    container_name: fsh
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_STANDALONE_URL=fsh
+      - SPLUNK_PASSWORD
+    ports:
+      - 8001:8000
+      - 8090:8089
+
+  rsh:
+    networks:
+      splunknet:
+        ipv4_address: 172.16.239.11
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: rsh
+    container_name: rsh
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_STANDALONE_URL=rsh
+      - SPLUNK_PASSWORD
+    ports:
+      - 8002:8000
+      - 8091:8089
