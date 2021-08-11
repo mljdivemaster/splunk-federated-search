@@ -1,3 +1,7 @@
+# Overview
+
+![This is an overview](Overview.jpg "Overview")
+
 # Environment
 In this demo environment we will use following set up:
 
